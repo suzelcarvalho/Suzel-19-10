@@ -1,9 +1,13 @@
 package application.controllers;
+import java,util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PrathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import application.models.Livro;
 import application.repositories.LivroRepository;
 import org.springframework.ui.Model;
@@ -33,5 +37,14 @@ public class LivroController {
     livro.setTitulo(titulo);
     livrosRepo.save(livro);
     return "redirect:/livro/list";
-  } 
+  }
+  @RequestMapping("/delete/{id}")
+  public String formDelete(Model moldel,@PrathVariable int id){
+    Optional<Livro>livro=livrosRepo.findById(id);
+    if(!livro.isPresent())
+      return "redirect:/livro/list";
+      model.addAttributes("livro",livro.get());
+
+    return "/livro/delete.jsp"; 
 }
+
