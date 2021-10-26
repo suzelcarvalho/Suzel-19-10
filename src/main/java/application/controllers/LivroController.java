@@ -1,5 +1,5 @@
 package application.controllers;
-import java,util.Optional;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,12 +39,16 @@ public class LivroController {
     return "redirect:/livro/list";
   }
   @RequestMapping("/delete/{id}")
-  public String formDelete(Model moldel,@PrathVariable int id){
+  public String formDelete(Model moldel,@PathVariable int id){
     Optional<Livro>livro=livrosRepo.findById(id);
     if(!livro.isPresent())
       return "redirect:/livro/list";
-      model.addAttributes("livro",livro.get());
+      model.addAttribute("livro", livro.get());
+      
 
-    return "/livro/delete.jsp"; 
-}
+    return "/livro/delete.jsp";
+  }
+  
+  } 
+
 
